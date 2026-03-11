@@ -13,7 +13,7 @@ ARCHIVO_DATOS = "estudiantes.json"
 class Materia:
     def __init__(self, nombre: str, nota: float):
         self.nombre = nombre.strip().upper()
-        self.nota = max(0.0, min(5.0, float(nota)))  # rango 0.0 a 5.0
+        self.nota = max(0.0, min(5.0, float(nota)))  # range 0.0 a 5.0
 
     def __str__(self):
         return f"{self.nombre:25} | {self.nota:4.1f}"
@@ -23,7 +23,7 @@ class Estudiante:
     def __init__(self, codigo: str, nombre: str):
         self.codigo = codigo.strip().upper()
         self.nombre = nombre.strip().title()
-        self.materias: Dict[str, Materia] = {}  # clave = nombre materia
+        self.materias: Dict[str, Materia] = {}  # key = subjet's name
 
     def agregar_materia(self, nombre_materia: str, nota: float):
         clave = nombre_materia.strip().upper()
