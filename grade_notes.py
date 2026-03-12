@@ -26,7 +26,7 @@ class Estudiante:
     def agregar_materia(self, nombre_materia: str, nota: float):
         clave = nombre_materia.strip().upper()
         if clave in self.materias:
-            print(f"→ La materia '{clave}' ya existe. Se sobrescribirá.")
+            print(f"→ The subject '{clave}' already exists.")
         self.materias[clave] = Materia(nombre_materia, nota)
 
     def promedio(self) -> float:
@@ -38,17 +38,14 @@ class Estudiante:
         print(f"\n┌─ {self.codigo}  {self.nombre}")
         print(f"│  Promedio: {self.promedio():.2f}")
         if not self.materias:
-            print("└─ Sin materias registradas")
+            print("└─ No subjects registered yet.")
         else:
-            print("├─ Materias:")
+            print("├─ Subjects:")
             for m in self.materias.values():
                 print(f"│  {m}")
             print("└" + "─" * 40)
 
-
-# ──────────────────────────────────────────────
 #          Funciones de archivo
-# ──────────────────────────────────────────────
 
 def cargar_datos() -> Dict[str, Estudiante]:
     if not os.path.exists(ARCHIVO_DATOS):
@@ -64,7 +61,7 @@ def cargar_datos() -> Dict[str, Estudiante]:
             estudiantes[cod] = est
         return estudiantes
     except Exception as e:
-        print(f"Error al cargar datos: {e}")
+        print(f"Error loading data: {e}")
         return {}
 
 
@@ -78,9 +75,9 @@ def guardar_datos(estudiantes: Dict[str, Estudiante]):
     try:
         with open(ARCHIVO_DATOS, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-        print(f"→ Datos guardados en {ARCHIVO_DATOS}")
+        print(f"→ Data saved to {ARCHIVO_DATOS}")
     except Exception as e:
-        print(f"Error al guardar: {e}")
+        print(f"Error saving data: {e}")
 
 
 # ──────────────────────────────────────────────
@@ -89,92 +86,92 @@ def guardar_datos(estudiantes: Dict[str, Estudiante]):
 
 def mostrar_menu():
     print("\n" + "═" * 50)
-    print(" SISTEMA DE ESTUDIANTES ".center(50))
+    print(" STUDENT'S SYSTEM ".center(50))
     print("═" * 50)
-    print(" 1. Registrar nuevo estudiante")
-    print(" 2. Agregar / modificar nota")
-    print(" 3. Ver información de un estudiante")
-    print(" 4. Ver todos los estudiantes")
-    print(" 5. Mostrar promedio general y destacado")
-    print(" 6. Guardar y salir")
+    print(" 1. Record new student")
+    print(" 2. add / update grade")
+    print(" 3. Show student details")
+    print(" 4. Show all students")
+    print(" 5. Show overall average and top student")
+    print(" 6. Save and exit")
     print("═" * 50)
 
 
 def main():
     estudiantes = cargar_datos()
-    print(f"→ Se cargaron {len(estudiantes)} estudiantes del archivo")
+    print(f"→ {len(estudiantes)} was registered students.")
 
     while True:
         mostrar_menu()
-        opcion = input("→ Elige una opción (1-6): ").strip()
+        opcion = input("→ Enter an option (1-6): ").strip()
 
         if opcion == "1":
-            codigo = input("Código del estudiante: ").strip().upper()
+            codigo = input("Student ID: ").strip().upper()
             if codigo in estudiantes:
-                print("¡Ese código ya está registrado!")
+                print("That code already exists. Try another one.")
                 continue
-            nombre = input("Nombre completo: ").strip()
+            nombre = input("Full name: ").strip()
             estudiantes[codigo] = Estudiante(codigo, nombre)
-            print(f"→ {nombre} ({codigo}) registrado.")
+            print(f"→ {nombre} ({codigo}) registered.")
 
         elif opcion == "2":
-            codigo = input("Código del estudiante: ").strip().upper()
+            codigo = input("Student ID: ").strip().upper()
             if codigo not in estudiantes:
-                print("Estudiante no encontrado.")
+                print("Student not found.")
                 continue
             est = estudiantes[codigo]
-            materia = input("Nombre de la materia: ").strip()
+            materia = input("Subject name: ").strip()
             while True:
                 try:
-                    nota = float(input("Nota (0.0 - 5.0): "))
+                    nota = float(input("Grade (0.0 - 5.0): "))
                     if 0 <= nota <= 5:
                         break
-                    print("La nota debe estar entre 0.0 y 5.0")
+                    print("The grade must be between 0.0 and 5.0")
                 except ValueError:
-                    print("Ingresa un número válido.")
+                    print("Please enter a valid number.")
             est.agregar_materia(materia, nota)
-            print("→ Nota registrada/actualizada.")
+            print("→ Grade registered/updated.")
 
         elif opcion == "3":
-            codigo = input("Código: ").strip().upper()
+            codigo = input("Student ID: ").strip().upper()
             if codigo in estudiantes:
                 estudiantes[codigo].mostrar()
             else:
-                print("No se encontró ese código.")
+                print("Student not found.")
 
         elif opcion == "4":
             if not estudiantes:
-                print("Aún no hay estudiantes registrados.")
+                print("No students registered yet.")
                 continue
-            print("\n" + " LISTADO GENERAL ".center(50))
+            print("\n" + " STUDENT LIST ".center(50))
             for est in estudiantes.values():
                 est.mostrar()
 
         elif opcion == "5":
             if not estudiantes:
-                print("No hay estudiantes para calcular promedios.")
+                print("No students available to calculate averages.")
                 continue
 
             promedios = [(est.promedio(), est) for est in estudiantes.values()]
             promedios.sort(reverse=True)
 
-            print("\n" + " ESTADÍSTICAS DEL GRUPO ".center(50))
+            print("\n" + " GROUP STATISTICS ".center(50))
             promedio_grupo = mean(p[0] for p in promedios)
-            print(f"Promedio general del grupo: {promedio_grupo:.2f}")
-            print(f"Estudiante destacado: {promedios[0][1].nombre} ({promedios[0][1].codigo}) → {promedios[0][0]:.2f}")
-            print(f"Peor promedio: {promedios[-1][1].nombre} → {promedios[-1][0]:.2f}")
+            print(f"Overall group average: {promedio_grupo:.2f}")
+            print(f"Top student: {promedios[0][1].nombre} ({promedios[0][1].codigo}) → {promedios[0][0]:.2f}")
+            print(f"Lowest average: {promedios[-1][1].nombre} → {promedios[-1][0]:.2f}")
 
         elif opcion == "6":
             guardar_datos(estudiantes)
-            print("\n¡Gracias por usar el sistema! Hasta luego.")
+            print("\nThank you for using the Student's System. Goodbye!")
             break
 
         else:
-            print("Opción no válida, intenta de nuevo.")
+            print("Invalid option, please try again.")
 
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("\n\nPrograma terminado por el usuario.")
+        print("\n\nProgram finished by user.")
