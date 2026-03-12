@@ -78,8 +78,7 @@ def guardar_datos(estudiantes: Dict[str, Estudiante]):
         print(f"→ Data saved to {ARCHIVO_DATOS}")
     except Exception as e:
         print(f"Error saving data: {e}")
-
-
+    
 # ──────────────────────────────────────────────
 #          Menú principal
 # ──────────────────────────────────────────────
