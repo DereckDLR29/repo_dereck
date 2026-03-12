@@ -106,13 +106,39 @@ def main():
         opcion = input("→ Enter an option (1-6): ").strip()
 
         if opcion == "1":
-            codigo = input("Student ID: ").strip().upper()
-            if codigo in estudiantes:
-                print("That code already exists. Try another one.")
-                continue
-            nombre = input("Full name: ").strip()
-            estudiantes[codigo] = Estudiante(codigo, nombre)
-            print(f"→ {nombre} ({codigo}) registered.")
+            while True:
+                codigo = input("Student ID: ").strip().upper()
+                if codigo in estudiantes:
+                    print("That code already exists. Try another one.")
+                    continue
+                nombre = input("Full name: ").strip()
+                estudiantes[codigo] = Estudiante(codigo, nombre)
+                print(f"→ {nombre} ({codigo}) registered.")
+                
+                # Preguntar si agregar materias
+                while True:
+                    agregar_materia = input("Do you want to add a subject to this student? (y/n): ").strip().lower()
+                    if agregar_materia == 'y':
+                        materia = input("Subject name: ").strip()
+                        while True:
+                            try:
+                                nota = float(input("Grade (0.0 - 5.0): "))
+                                if 0 <= nota <= 5:
+                                    break
+                                print("The grade must be between 0.0 and 5.0")
+                            except ValueError:
+                                print("Please enter a valid number.")
+                        estudiantes[codigo].agregar_materia(materia, nota)
+                        print("→ Grade registered/updated.")
+                    elif agregar_materia == 'n':
+                        break
+                    else:
+                        print("Please enter 'y' or 'n'.")
+                
+                # Preguntar si seguir agregando estudiantes
+                seguir = input("Do you want to register another student? (y/n): ").strip().lower()
+                if seguir != 'y':
+                    break
 
         elif opcion == "2":
             codigo = input("Student ID: ").strip().upper()
