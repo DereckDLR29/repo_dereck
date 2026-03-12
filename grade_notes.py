@@ -1,6 +1,3 @@
-# first step: define the grade notes' variables
-
-# second step: define the grade notes' functions
 
 import json
 from statistics import mean
@@ -9,6 +6,7 @@ import os
 
 ARCHIVO_DATOS = "estudiantes.json"
 
+# definir las clases para representar estudiantes y materias
 
 class Materia:
     def __init__(self, nombre: str, nota: float):
