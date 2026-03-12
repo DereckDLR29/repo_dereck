@@ -1,124 +1,22 @@
 # repo_dereck
-para trabajar ejercicios 
+# Student Management System
 
-Proyecto: Sistema de Registro de Estudiantes y Notas
-Descripción
-Se desarrollará un pequeño sistema que permita registrar estudiantes, sus materias y las notas obtenidas.
-El sistema también debe calcular el promedio de cada estudiante y mostrar información general del grupo.
+## Description
 
-Este proyecto se desarrollará usando una metodología ágil inspirada en Scrum, con un sprint de 3 días.
+This project **is designed to** manage basic student information including names, enrolled subjects, and grades.  
+It **is intended to** provide a simple way to store and persist student records in a JSON file for small-scale academic use or educational purposes.
 
-Features del Sistema
-Feature 1 — Registro de estudiantes
-Permite registrar estudiantes dentro del sistema.
+## How it works
 
-Feature 2 — Registro de materias y notas
-Permite asociar materias y notas a cada estudiante.
+1. The program maintains a dictionary where each key is a student code (string) and each value is an `Estudiante` object.
+2. The `guardar_datos()` function receives this dictionary as parameter.
+3. It creates a new simplified dictionary structure suitable for JSON serialization.
+4. For each student, it extracts the name and builds a sub-dictionary of subject names → grades.
+5. The resulting data structure is written to a file (whose path is stored in the constant `ARCHIVO_DATOS`) using the `json` module.
+6. The function uses `ensure_ascii=False` to correctly handle accented characters (e.g. Spanish names).
+7. It prints a success message when the save completes or shows an error message if something fails.
 
-Feature 3 — Visualización de información
-Permite consultar la información académica registrada.
+## Status
 
-Feature 4 — Análisis de resultados
-Permite calcular promedios y encontrar estudiantes destacados.
-
-
-
-**************************************************
-Historias de Usuario
-------------------------------------------------------
-------------------------------------------------------
-Historia 1 — Registrar estudiantes
-Como usuario del sistema
-Quiero registrar el nombre de varios estudiantes
-Para poder guardar su información académica.
-
-Criterios de aceptación
-
-El sistema permite ingresar varios estudiantes.
-Cada estudiante queda guardado en el sistema.
-Se puede mostrar la lista de estudiantes registrados.
-------------------------------------------------------
-------------------------------------------------------
-Historia 2 — Registrar materias y notas
-Como usuario
-Quiero registrar materias y notas para cada estudiante
-Para llevar un seguimiento de su desempeño académico.
-
-Criterios de aceptación
-
-Cada estudiante puede tener varias materias.
-Cada materia tiene una nota asociada.
-La información se guarda correctamente.
-------------------------------------------------------
-------------------------------------------------------
-Historia 3 — Mostrar información de estudiantes
-Como usuario
-Quiero ver las materias y notas de cada estudiante
-Para revisar su información académica.
-
-Criterios de aceptación
-
-El sistema muestra el nombre del estudiante.
-Se muestran las materias registradas.
-Se muestran las notas de cada materia.
-----------------------------------------------------------
------------------------------------------------------------
-Historia 4 — Calcular promedio del estudiante
-Como usuario
-Quiero ver el promedio de notas de cada estudiante
-Para conocer su rendimiento general.
-
-Criterios de aceptación
-
-El promedio se calcula con todas las materias registradas.
-El promedio se muestra junto con la información del estudiante.
---------------------------------------------------------
-----------------------------------------------
-Historia 5 — Identificar el mejor estudiante
-Como usuario
-Quiero saber cuál estudiante tiene el mejor promedio
-Para identificar el mejor rendimiento académico.
-
-Criterios de aceptación
-
-El sistema analiza todos los estudiantes registrados.
-Se muestra el estudiante con el mayor promedio.
-Sprint de Desarrollo (3 días)
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-Día 1 — Registro de estudiantes
-Objetivo del sprint
-Permitir registrar estudiantes en el sistema.
-
-Tareas
-Crear estructura para guardar estudiantes
-Permitir ingresar varios estudiantes
-Mostrar lista de estudiantes registrados
-Entrega del día
-El sistema permite registrar y mostrar estudiantes.
-----------------------------------------------------------------------------
-----------------------------------------------------------------------------
-Día 2 — Registro de materias y notas
-Objetivo del sprint
-Permitir registrar materias y notas para cada estudiante.
-
-Tareas
-Registrar materias para cada estudiante
-Registrar notas
-Guardar materias dentro del estudiante
-Entrega del día
-El sistema guarda estudiantes con sus materias y notas.
-----------------------------------------------------------------------------
-----------------------------------------------------------------------------
-Día 3 — Resultados y análisis
-Objetivo del sprint
-Mostrar información académica y calcular promedios.
-
-Tareas
-Calcular promedio por estudiante
-Mostrar información completa
-Encontrar el estudiante con mejor promedio
-Entrega del día
-El sistema muestra estudiantes, materias, notas y promedios.
-
-
+> The project is currently being developed as a basic prototype.  
+> The save functionality works correctly for the core use case, but loading and full CRUD operations are still in progress.
