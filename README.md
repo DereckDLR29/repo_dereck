@@ -1,6 +1,20 @@
 # repo_dereck
 # Student Management System
 
+def guardar_datos(estudiantes: Dict[str, Estudiante]):
+    data = {}
+    for cod, est in estudiantes.items():
+        data[cod] = {
+            "nombre": est.nombre,
+            "materias": {m.nombre: m.nota for m in est.materias.values()}
+        }
+    try:
+        with open(ARCHIVO_DATOS, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        print(f"→ Data saved to {ARCHIVO_DATOS}")
+    except Exception as e:
+        print(f"Error saving data: {e}")
+
 ## Description
 
 This project **is designed to** manage basic student information including names, enrolled subjects, and grades.  
